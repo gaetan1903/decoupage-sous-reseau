@@ -9,7 +9,6 @@ import math
 def base2todec(bin):
     cnv = 0
     n = 0
-    bin = list(bin)
     for i in bin[::-1]:
         cnv += int(i)*(2**n)
         n += 1
@@ -21,7 +20,6 @@ def maskIso(mask):
     val = mask % 8
     for i in range(val):
         bt[i] = '1'
-    print(bt)
     return f"255.255.255.{base2todec(''.join(bt))}"
 
     return ''
@@ -30,10 +28,6 @@ def maskIso(mask):
 ipd = ''
 while not re.match(r'^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$', ipd):
     ipd = input("Entrer addresse réseau:  ")
-
-maskd = ''
-while not re.match(r'^\d{1,2}$', maskd):
-    maskd = input("Entrer son masque : ")
 
 nbSr = ''
 while not re.match(r'\d', nbSr):
@@ -52,10 +46,16 @@ for nom, nbr in sR.items():
     n = int(math.log2(nbr)) +  1
     newmask = 32 - n
     ipsr = lastIp
-    sRdec[nom] = (ipsr, newmask, maskIso(newmask))
+    sRdec[nom] = (ipsr, nbr, (newmask, maskIso(newmask)))
     lastIp = lastIp.split('.')
     lastIp[-1] = str(int(lastIp[-1]) + 2**n)
     lastIp = '.'.join(lastIp)
 
-print(sRdec)
+for key, val in sRdec.items():
+    print(f"""
+        {key}: {val[1]} PCs
+
+        Adresse réseau: {val[0]}/{val[2][0]}
+        Masque sous réseau: {val[2][1]}
+    """)
 
