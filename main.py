@@ -38,23 +38,24 @@ for i in range(int(nbSr)):
     print("")
     sR[name] = int(nbrPC)
 
-sR = {k: v for k, v in sorted(sR.items(), key=lambda kv: kv[1], reverse=True)}#Triage par plus grand nombre de PC par sous-réseau d'où reverse.
+sR = {k: v for k, v in sorted(sR.items(), key=lambda kv: kv[1], reverse=True)}
+# Triage par plus grand nombre de PC par sous-réseau d'où reverse.
 sRdec = {}
 lastIp = ipd
 for nom, nbr in sR.items():
-    n_s = math.log2(nbr+2) #On cherche d'abord n.
-    if n_s - int(n_s) == 0: 
+    n_s = math.log2(nbr+2) # On cherche d'abord n.
+    if n_s - int(n_s) == 0:
         n = int(n_s)
-    else: 
+    else:
         n = int(n_s) + 1
-    newmask = 32 - n #La formule de nouveau masque des sous réseaux.
+    newmask = 32 - n # La formule de nouveau masque des sous réseaux.
     ipsr = lastIp
     sRdec[nom] = (ipsr, nbr, (newmask, maskIso(newmask)))
     lastIp = lastIp.split('.')
     lastIp[-1] = str(int(lastIp[-1]) + 2**n)
     lastIp = '.'.join(lastIp)
 
-for key, val in sRdec.items(): #Affichage des sous réseaux.
+for key, val in sRdec.items(): # Affichage des sous réseaux.
     print(f"""
         {key}: {val[1]} PCs
         ---------------------------------------------
