@@ -1,6 +1,6 @@
 '''
-    Script permettant de decouper une addresse IP en sous reseaux en fonction
-    de nombre de sous réseaux.
+    Un script permettant de découper une addresse IP en des sous réseaux en fonction
+    de nombre de sous réseaux et en fonction de nombre des machines.
 '''
 import re #Module d'expression régulière en python
 import math
@@ -58,7 +58,7 @@ for nom, nbr in sR.items():
 for key, val in sRdec.items(): # Affichage des sous réseaux.
     print(f"""
         {key}: {val[1]} PCs
-        ---------------------------------------------
+        --------------------------------------------
         Adresse réseau: {val[0]}/{val[2][0]}
         Masque sous réseau: {val[2][1]}
     """)
