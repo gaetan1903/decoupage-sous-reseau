@@ -34,7 +34,9 @@ while not re.match(r'\d', nbSr):
 sR = {}
 for i in range(int(nbSr)):
     name = input(f"Entrer le nom du sous réseau {i+1}: ")
-    nbrPC = input(f"Entrer le nombre de PC: ")
+    nbrPC = ''
+    while not re.match(r'\d', nbrPC):
+        nbrPC = input(f"Entrer le nombre de PC: ")
     print("")
     sR[name] = int(nbrPC)
 
