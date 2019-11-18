@@ -26,6 +26,16 @@ def maskIso(mask):
     return f"255.255.255.{base2todec(''.join(bt))}"
 
 
+def inverse(maskIS):
+    spr = maskIS.split('.')
+    inv_mask = []
+    for bin in spr:
+        bin = 255 - int(bin)
+        inv_mask.append(str(bin))
+    return '.'.join(inv_mask)
+
+
+
 ipd = ''
 while not re.match(r'^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$', ipd):
     ipd = input("Entrer l'addresse réseau >>>  ")
@@ -60,7 +70,7 @@ for nom, nbr in sR.items():
         n = int(n_s) + 1
     newmask = 32 - n  # La formule de nouveau masque des sous réseaux.
     ipsr = lastIp
-    sRdec[nom] = (ipsr, nbr, (newmask, maskIso(newmask)))
+    sRdec[nom] = (ipsr, nbr, (newmask, maskIso(newmask)), inverse(maskIso(newmask)))
     lastIp = lastIp.split('.')
     lastIp[-1] = str(int(lastIp[-1]) + 2**n)
     lastIp = '.'.join(lastIp)
@@ -71,4 +81,5 @@ for key, val in sRdec.items():  # Affichage des sous réseaux.
         --------------------------------------------
         Adresse réseau: {val[0]}/{val[2][0]}
         Masque sous réseau: {val[2][1]}
+        Inverse Masque réseau: {val[3]}
     """)
