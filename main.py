@@ -42,7 +42,7 @@ while not re.match(r'^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$', ipd):
 
 nbSr = ''
 while not re.match(r'\d', nbSr):
-    nbSr = input("Entrer le nombre de sous réseau >>> ")
+    nbSr = input("\nEntrer le nombre de sous réseau >>> ")
 
 sR = {}
 for i in range(int(nbSr)):
@@ -71,13 +71,17 @@ for nom, nbr in sR.items():
     newmask = 32 - n  # La formule de nouveau masque des sous réseaux.
     ipsr = lastIp
 
+    nbrMax = 2**n - 2
+
     gateway = ipsr.split('.')
     gateway[-1] = str(int(gateway[-1])+1)
     gateway = '.'.join(gateway)
 
-    nbrMax = 2**n - 2
+    broadcast = gateway.split('.')
+    broadcast[-1] = str(int(broadcast[-1])+nbrMax)
+    broadcast = '.'.join(broadcast)
 
-    sRdec[nom] = (ipsr, nbr, (newmask, maskIso(newmask)), inverse(maskIso(newmask)), gateway, nbrMax)
+    sRdec[nom] = (ipsr, nbr, (newmask, maskIso(newmask)), inverse(maskIso(newmask)), gateway, nbrMax, broadcast)
     lastIp = lastIp.split('.')
     lastIp[-1] = str(int(lastIp[-1]) + 2**n)
     lastIp = '.'.join(lastIp)
@@ -89,6 +93,7 @@ for key, val in sRdec.items():  # Affichage des sous réseaux.
         Adresse réseau: {val[0]}/{val[2][0]}
         Masque sous réseau: {val[2][1]}
         Passerelle: {val[4]}
+        Broadcast: {val[6]}
         Inverse Masque réseau: {val[3]}
-        Nombre de Machine Max: {val[5]} 
+        Nombre de Machine Max: {val[5]}
     """)
