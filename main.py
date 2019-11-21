@@ -70,7 +70,12 @@ for nom, nbr in sR.items():
         n = int(n_s) + 1
     newmask = 32 - n  # La formule de nouveau masque des sous réseaux.
     ipsr = lastIp
-    sRdec[nom] = (ipsr, nbr, (newmask, maskIso(newmask)), inverse(maskIso(newmask)))
+
+    gateway = ipsr.split('.')
+    gateway[-1] = str(int(gateway[-1])+1)
+    gateway = '.'.join(gateway)
+
+    sRdec[nom] = (ipsr, nbr, (newmask, maskIso(newmask)), inverse(maskIso(newmask)), gateway)
     lastIp = lastIp.split('.')
     lastIp[-1] = str(int(lastIp[-1]) + 2**n)
     lastIp = '.'.join(lastIp)
@@ -81,5 +86,6 @@ for key, val in sRdec.items():  # Affichage des sous réseaux.
         --------------------------------------------
         Adresse réseau: {val[0]}/{val[2][0]}
         Masque sous réseau: {val[2][1]}
+        Passerelle: {val[4]}
         Inverse Masque réseau: {val[3]}
     """)
