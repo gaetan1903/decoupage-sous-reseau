@@ -37,12 +37,20 @@ def inverse(maskIS):
 
 
 ipd = ''
+i = 0
 while not re.match(r'^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$', ipd):
-    ipd = input("Entrer l'addresse réseau >>>  ")
+    ipd = input("Entrer l'addresse réseau >>>  " 
+        if i == 0 else "(Erreur) Entrer l'addresse réseau >>> ")
+    i += 1
 
 nbSr = ''
-while not re.match(r'\d', nbSr):
-    nbSr = input("\nEntrer le nombre de sous réseau >>> ")
+i = 0
+while not re.match(r'\d+$', nbSr):
+    nbSr = input("\nEntrer le nombre de sous réseau >>> "
+        if i == 0 else "(Erreur) Entrer le nombre de sous réseau >>> ")
+    i += 1
+
+print()
 
 sR = {}
 for i in range(int(nbSr)):
