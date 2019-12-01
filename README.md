@@ -10,13 +10,25 @@
 
 * Ce script n'est valable que pour un réseau de masque 24 pour l'instant 
 
-## AUTEURS
+### AUTEUR
+<table>
+<tr>
+  <td align="center"><img width='160' height='160' src="https://avatars0.githubusercontent.com/u/43904633?s=460&v=4"></td>
+</tr>
+<tr>
+  <td align="center">Gaetan Jonathan</td>
+ </tr>
+<table>
 
-* Gaetan Jonathan 
+### CONTRIBUTEUR(S)
 
-## CONTRIBUTEURS
-
-* Landry LD
-
+<table>
+<tr>
+  <td align="center"><img width='160' height='160' src="https://avatars0.githubusercontent.com/u/47665507?s=400&v=4"></td>
+</tr>
+<tr>
+  <td align="center">Landry Daniel</td>
+ </tr>
+<table>
 
 
