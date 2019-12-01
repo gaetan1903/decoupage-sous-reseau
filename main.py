@@ -35,7 +35,6 @@ def inverse(maskIS):
     return '.'.join(inv_mask)
 
 
-
 ipd = ''
 i = 0
 while not re.match(r'^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$', ipd):
@@ -72,15 +71,10 @@ sRdec = {}
 lastIp = ipd
 for nom, nbr in sR.items():
     n_s = math.log2(nbr+2)  # On cherche d'abord n.
-    if n_s - int(n_s) == 0:
-        n = int(n_s)
-    else:
-        n = int(n_s) + 1
+    n = int(n_s) if n_s - int(n_s) == 0 else int(n_s) + 1
     newmask = 32 - n  # La formule de nouveau masque des sous réseaux.
     ipsr = lastIp
-
     nbrMax = 2**n - 2
-
     gateway = ipsr.split('.')
     gateway[-1] = str(int(gateway[-1])+1)
     gateway = '.'.join(gateway)
