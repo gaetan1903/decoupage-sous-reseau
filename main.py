@@ -35,10 +35,9 @@ def inverse(maskIS):
     return '.'.join(inv_mask)
 
 
-ipd = ''
-i = 0
+ipd, i = '', 0
 while not re.match(r'^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$', ipd):
-    ipd = input("Entrer l'addresse réseau >>>  " 
+    ipd = input("Entrer l'addresse réseau >>>  "
         if i == 0 else "(Erreur) Entrer l'addresse réseau >>> ")
     i += 1
 
@@ -60,10 +59,12 @@ for i in range(int(nbSr)):
     print("")
     sR[name] = int(nbrPC)
 
+"""" 
 if sum(sR.values()) > 254:
     print('Oupss! Le total des PCs est superieurs à 254, \nCe qui n\'est pas \
 possible pour un réseau de masque 24')
     exit()
+"""
 
 sR = {k: v for k, v in sorted(sR.items(), key=lambda kv: kv[1], reverse=True)}
 # Triage par plus grand nombre de PC par sous-réseau d'où reverse.
@@ -85,7 +86,9 @@ for nom, nbr in sR.items():
 
     sRdec[nom] = (ipsr, nbr, (newmask, maskIso(newmask)), inverse(maskIso(newmask)), gateway, nbrMax, broadcast)
     lastIp = lastIp.split('.')
-    lastIp[-1] = str(int(lastIp[-1]) + 2**n)
+    newHostid = int(lastIp[-1]) + 2**n
+    lastIp[-2] = str( int(lastIp[-2]) + (newHostid // 256) ) 
+    lastIp[-1] = str( newHostid % 256)
     lastIp = '.'.join(lastIp)
 
 for key, val in sRdec.items():  # Affichage des sous réseaux.
