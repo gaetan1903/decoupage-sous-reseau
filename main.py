@@ -72,7 +72,7 @@ sRdec = {}
 lastIp = ipd
 for nom, nbr in sR.items():
     n_s = math.log2(nbr+2)  # On cherche d'abord n.
-    n = int(n_s) if n_s - int(n_s) == 0 else int(n_s) + 1
+    n = int(n_s+1)
     newmask = 32 - n  # La formule de nouveau masque des sous réseaux.
     ipsr = lastIp
     nbrMax = 2**n - 2
